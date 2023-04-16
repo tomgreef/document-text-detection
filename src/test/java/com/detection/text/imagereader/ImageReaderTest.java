@@ -7,8 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class ImageReaderTest {
@@ -27,7 +26,6 @@ class ImageReaderTest {
         } catch (ErrorWhileReadingImageFileException e) {
             fail();
         }
-
     }
 
     @Test
@@ -38,6 +36,18 @@ class ImageReaderTest {
         } catch (ErrorWhileReadingImageFileException e) {
             fail();
         }
-
     }
+    @Test
+    void readPngImage() {
+        try {
+            String textInPdf = service.readImageFile("samples/listado-trabajos.png", TesseractDataLanguage.SPANISH);
+            log.info(textInPdf);
+            assertTrue(textInPdf.contains("GIMP"));
+            assertTrue(textInPdf.contains("Instrucciones"));
+            assertTrue(textInPdf.contains("tendrá"));
+        } catch (ErrorWhileReadingImageFileException e) {
+            fail();
+        }
+    }
+
 }

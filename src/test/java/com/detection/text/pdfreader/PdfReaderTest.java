@@ -21,10 +21,23 @@ class PdfReaderTest {
     void readSimplePdf() {
         try {
             String textInPdf = service.readPdfFile("samples/simple.pdf");
+            log.info(textInPdf);
             assertEquals("Esto en un PDF simple.", textInPdf.trim());
         } catch (ErrorWhileReadingPdfFileException e) {
             fail();
         }
+    }
 
+    @Test
+    void readPdf() {
+        try {
+            String textInPdf = service.readPdfFile("samples/listado-trabajos.pdf");
+            log.info(textInPdf);
+            assertTrue(textInPdf.contains("GIMP"));
+            assertTrue(textInPdf.contains("Instrucciones"));
+            assertTrue(textInPdf.contains("tendrá"));
+        } catch (ErrorWhileReadingPdfFileException e) {
+            fail();
+        }
     }
 }
