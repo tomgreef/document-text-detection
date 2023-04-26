@@ -50,4 +50,17 @@ class ImageReaderTest {
         }
     }
 
+    @Test
+    void readPngSlide() {
+        try {
+            String textInPdf = service.readImageFile("samples/diapositiva.png", TesseractDataLanguage.SPANISH);
+            log.info(textInPdf);
+            assertTrue(textInPdf.contains("justamente"));
+            assertTrue(textInPdf.contains("coincidirá"));
+            assertTrue(textInPdf.contains("razonamientos"));
+            assertFalse(textInPdf.contains("Línea 16"));
+        } catch (ErrorWhileReadingImageFileException e) {
+            fail();
+        }
+    }
 }
